@@ -57,15 +57,6 @@
  		public int[] buffType = new int[22];
  		public int[] buffTime = new int[22];
  		public bool[] buffImmune = new bool[323];
-@@ -760,7 +_,7 @@
- 		public sbyte neck = -1;
- 		public sbyte face = -1;
- 		public sbyte balloon = -1;
--		public bool[] hideVisibleAccessory = new bool[10];
-+		public bool[] hideVisibleAccessory = new bool[12];
- 		public BitsByte hideMisc = (byte)0;
- 		public Rectangle headFrame;
- 		public Rectangle bodyFrame;
 @@ -1037,6 +_,12 @@
  		public int meleeCrit = 4;
  		public int magicCrit = 4;
@@ -1131,14 +1122,14 @@
 +				VanillaUpdateInventory(inventory[j]);
 +			}
 +
-+			for (int k = 0; k < 10 + extraAccessorySlots; k++) {
++			for (int k = 0; k < 8 + extraAccessorySlots; k++) {
 +				VanillaUpdateEquip(armor[k]);
 +			}
 +
 +			bool flag = false;
 +			bool flag2 = false;
 +			bool flag3 = false;
-+			for (int l = 3; l < 10 + extraAccessorySlots; l++) {
++			for (int l = 3; l < 8 + extraAccessorySlots; l++) {
 +				VanillaUpdateAccessory(i, armor[l], hideVisibleAccessory[l], ref flag, ref flag2, ref flag3);
  			}
  
