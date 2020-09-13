@@ -57,6 +57,15 @@
  		public int[] buffType = new int[22];
  		public int[] buffTime = new int[22];
  		public bool[] buffImmune = new bool[323];
+@@ -760,7 +_,7 @@
+ 		public sbyte neck = -1;
+ 		public sbyte face = -1;
+ 		public sbyte balloon = -1;
+-		public bool[] hideVisibleAccessory = new bool[10];
++		public bool[] hideVisibleAccessory = new bool[12];
+ 		public BitsByte hideMisc = (byte)0;
+ 		public Rectangle headFrame;
+ 		public Rectangle bodyFrame;
 @@ -1037,6 +_,12 @@
  		public int meleeCrit = 4;
  		public int magicCrit = 4;
@@ -1396,6 +1405,20 @@
  								SmartSelect_SelectItem(i);
  								return;
  						}
+@@ -12322,7 +_,12 @@
+ 		public static float GetClosestRollLuck(int x, int y, int range) => Main.player[FindClosest(new Vector2(x * 16, y * 16), 1, 1)].RollLuck(range);
+ 
+ 		public void ResetEffects() {
++			if (Main.masterMode)
++				if (extraAccessory || Main.gameMenu)
++					extraAccessorySlots = 2;
++				else
++					extraAccessorySlots = 1;
+-			if (extraAccessory && (Main.expertMode || Main.gameMenu))
++			else if (extraAccessory && (Main.expertMode || Main.gameMenu))
+ 				extraAccessorySlots = 1;
+ 			else
+ 				extraAccessorySlots = 0;
 @@ -12344,10 +_,16 @@
  			lifeRegen = 0;
  			manaCost = 1f;
