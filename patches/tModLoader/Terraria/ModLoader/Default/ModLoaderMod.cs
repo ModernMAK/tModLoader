@@ -10,6 +10,7 @@ using Terraria.ModLoader.Assets;
 using Terraria.ModLoader.Default.Developer;
 using Terraria.ModLoader.Default.Developer.Jofairden;
 using Terraria.ModLoader.Default.Patreon;
+using Terraria.ModLoader.Tags;
 
 namespace Terraria.ModLoader.Default
 {
@@ -48,6 +49,8 @@ namespace Terraria.ModLoader.Default
 				AddTexture("UnloadedTile", ReadTexture("UnloadedTile"));
 			}*/
 			
+			//TODO: Can we get internal mod autoloading?
+			
 			AddContent<UnloadedItem>();
 			AddContent<UnloadedGlobalItem>();
 			AddContent<StartBag>();
@@ -60,10 +63,17 @@ namespace Terraria.ModLoader.Default
 			AddContent<UnloadedTilesWorld>();
 			AddContent<HelpCommand>();
 			AddContent<ModlistCommand>();
-			/*AddPatronSets();
-			AddPlayer("PatronModPlayer", new PatronModPlayer());
+			//Tags
+			AddContent<ItemTags>();
+			AddContent<NPCTags>();
+			AddContent<ProjectileTags>();
+			AddContent<TileTags>();
+			AddContent<WallTags>();
+
+			AddPatronSets();
+			AddContent<PatronModPlayer>();
 			AddDeveloperSets();
-			AddPlayer("DeveloperPlayer", new DeveloperPlayer());*/
+			AddContent<DeveloperPlayer>();
 		}
 
 		public override void Unload() {
@@ -115,19 +125,6 @@ namespace Terraria.ModLoader.Default
 			AddContent(item);
 			// AddEquipTexture adds the arms and female body assets automatically, if EquipType is Body
 			AddEquipTexture(item, equipType, item.Texture + '_' + equipType);
-		}
-
-		internal static Texture2D ReadTexture(string file) {
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			// if someone set the type or name wrong, the stream will be null.
-			Stream stream = assembly.GetManifestResourceStream("Terraria.ModLoader.Default." + file + ".png");
-
-			// [sanity check, makes it easier to know what's wrong]
-			if (stream == null) {
-				throw new ArgumentException("Given EquipType for PatreonItem or name is not valid. It is possible either does not match up with the classname. If you added a new EquipType, modify GetEquipTypeSuffix() and AddPatreonItemAndEquipType() first.");
-			}
-
-			return Texture2D.FromStream(Main.instance.GraphicsDevice, stream);
 		}
 
 		internal static bool TryGettingPatreonOrDevArmor(Player player) {
